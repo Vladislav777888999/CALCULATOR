@@ -1,5 +1,4 @@
 "# CALCULATOR" 
-cыс
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton
 from PyQt5.QtWidgets import QLCDNumber, QLabel, QLineEdit
@@ -49,3 +48,53 @@ class Example(QWidget):
 
         self.LCD_raz = QLCDNumber(self)
         self.LCD_raz.move(50, 180)
+        self.LCD_raz = QLCDNumber(self)
+        self.LCD_raz.move(50, 180)
+
+        self.LCD_mn = QLCDNumber(self)
+        self.LCD_mn.move(80, 180)
+
+        self.LCD_del = QLCDNumber(self)
+        self.LCD_del.move(110, 180)
+
+        self.LCD_ans = QLCDNumber(self)
+        self.LCD_ans.move(140, 180)
+
+    def hello(self):
+        int1 = self.int_input1.text()
+        int2 = self.int_input2.text()
+        int3 = self.int_input3.text()
+        if int(int2) != 0:
+            if int3 == '+':
+                self.LCD_sum.display(int(int1))
+                self.LCD_raz.display(int3)
+                self.LCD_mn.display(int(int2))
+                self.LCD_del.display('=')
+                self.LCD_ans.display(int(int1) + int(int2))
+            elif int3 == '-':
+                self.LCD_sum.display(int(int1))
+                self.LCD_raz.display(int3)
+                self.LCD_mn.display(int(int2))
+                self.LCD_del.display('=')
+                self.LCD_ans.display(int(int1) - int(int2))
+            elif int3 == '*':
+                self.LCD_sum.display(int(int1))
+                self.LCD_raz.display(int3)
+                self.LCD_mn.display(int(int2))
+                self.LCD_del.display('=')
+                self.LCD_ans.display(int(int1) * int(int2))
+            elif int3 == '/':
+                self.LCD_sum.display(int(int1))
+                self.LCD_raz.display('/')
+                self.LCD_mn.display(int(int2))
+                self.LCD_del.display('=')
+                self.LCD_ans.display(int(int1) / int(int2))
+            self.label.setText("Пока все законно")
+        else:
+            self.label.setText("Уже незаконно")
+
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    ex = Example()
+    ex.show()
