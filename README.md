@@ -1,5 +1,6 @@
 "# CALCULATOR" 
 import sys
+import math
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton
 from PyQt5.QtWidgets import QLCDNumber, QLabel, QLineEdit
 
@@ -18,9 +19,10 @@ class Example(QWidget):
         self.btn.move(100, 150)
         self.btn.clicked.connect(self.hello)
 
-        self.label = QLabel(self)
-        self.label.setText("Пока все законно")
-        self.label.move(40, 30)
+        self.btn = QPushButton('Сбросить', self)
+        self.btn.resize(self.btn.sizeHint())
+        self.btn.move(180, 150)
+        self.btn.clicked.connect(self.nul)
 
         self.int_label1 = QLabel(self)
         self.int_label1.setText("Введите первое число: ")
@@ -30,32 +32,18 @@ class Example(QWidget):
         self.int_input1.move(200, 60)
 
         self.int_label2 = QLabel(self)
-        self.int_label2.setText("Введите второе число: ")
+        self.int_label2.setText("Введите арифметическое действие: ")
         self.int_label2.move(10, 90)
 
         self.int_input2 = QLineEdit(self)
         self.int_input2.move(200, 90)
 
         self.int_label3 = QLabel(self)
-        self.int_label3.setText("Введите арифметическое действие: ")
+        self.int_label3.setText("Введите второе число: ")
         self.int_label3.move(10, 120)
-        
+
         self.int_input3 = QLineEdit(self)
-        self.int_input3.move(200, 120)        
-        
-        self.LCD_sum = QLCDNumber(self)
-        self.LCD_sum.move(20, 180)
-
-        self.LCD_raz = QLCDNumber(self)
-        self.LCD_raz.move(50, 180)
-        self.LCD_raz = QLCDNumber(self)
-        self.LCD_raz.move(50, 180)
-
-        self.LCD_mn = QLCDNumber(self)
-        self.LCD_mn.move(80, 180)
-
-        self.LCD_del = QLCDNumber(self)
-        self.LCD_del.move(110, 180)
+        self.int_input3.move(200, 120)
 
         self.LCD_ans = QLCDNumber(self)
         self.LCD_ans.move(140, 180)
@@ -63,38 +51,37 @@ class Example(QWidget):
     def hello(self):
         int1 = self.int_input1.text()
         int2 = self.int_input2.text()
-        int3 = self.int_input3.text()
-        if int(int2) != 0:
-            if int3 == '+':
-                self.LCD_sum.display(int(int1))
-                self.LCD_raz.display(int3)
-                self.LCD_mn.display(int(int2))
-                self.LCD_del.display('=')
-                self.LCD_ans.display(int(int1) + int(int2))
-            elif int3 == '-':
-                self.LCD_sum.display(int(int1))
-                self.LCD_raz.display(int3)
-                self.LCD_mn.display(int(int2))
-                self.LCD_del.display('=')
-                self.LCD_ans.display(int(int1) - int(int2))
-            elif int3 == '*':
-                self.LCD_sum.display(int(int1))
-                self.LCD_raz.display(int3)
-                self.LCD_mn.display(int(int2))
-                self.LCD_del.display('=')
-                self.LCD_ans.display(int(int1) * int(int2))
-            elif int3 == '/':
-                self.LCD_sum.display(int(int1))
-                self.LCD_raz.display('/')
-                self.LCD_mn.display(int(int2))
-                self.LCD_del.display('=')
-                self.LCD_ans.display(int(int1) / int(int2))
-            self.label.setText("Пока все законно")
+        if int2 == '*/':
+            if int(int1) > 0:
+                self.LCD_ans.display(math.sqrt(int(int1)))
+            else:
+                self.LCD_ans.display('error')
+        elif int2 == '**':
+            self.LCD_ans.display((int(int1) ** 2))
+        elif int2 == '***':
+            self.LCD_ans.display((int(int1) ** 3))
+        elif int2 == '!':
+            self.LCD_ans.display(math.factorial(int(int1)))
         else:
-            self.label.setText("Уже незаконно")
+            int3 = self.int_input3.text()
+            if int2 == '/':
+                if int(int3) == 0:
+                    self.LCD_ans.display('error')
+                else:
+                    self.LCD_ans.display(int(int1) / int(int3))
+            elif int2 == '+':
+                self.LCD_ans.display(int(int1) + int(int3))
+            elif int2 == '-':
+                self.LCD_ans.display(int(int1) - int(int3))
+            elif int3 == '*':
+                self.LCD_ans.display(int(int1) * int(int3))
 
+
+    def nul(self):
+        self.LCD_ans.display('0')
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = Example()
     ex.show()
+    sys.exit(app.exec())
