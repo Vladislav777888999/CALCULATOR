@@ -1,4 +1,4 @@
-"# CALCULATOR" 
+"""# CALCULATOR"""
 import sys
 import math
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton
@@ -105,9 +105,9 @@ class Example(QWidget):
                 elif int3 == '*':
                     self.LCD_ans.display(int(int1) * int(int3))
 
-
     def nul(self):
         self.LCD_ans.display('0')
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
