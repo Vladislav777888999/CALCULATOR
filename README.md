@@ -102,7 +102,7 @@ class Example(QWidget):
                     self.LCD_ans.display(int(int1) + int(int3))
                 elif int2 == '-':
                     self.LCD_ans.display(int(int1) - int(int3))
-                elif int3 == '*':
+                elif int2 == '*':
                     self.LCD_ans.display(int(int1) * int(int3))
 
     def nul(self):
